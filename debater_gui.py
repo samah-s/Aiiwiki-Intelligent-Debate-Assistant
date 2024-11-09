@@ -1,5 +1,6 @@
 import streamlit as st
 import re
+import base64
 from debater_program import IntelligentDebater  # assuming both files are in the same directory
 
 # Streamlit App Configurations
@@ -23,15 +24,17 @@ if topic:
     wiki_content = debater.fetch_wiki_content(topic)
     
     if wiki_content:
-        # Add HTML download option in the sidebar
+        # Add direct download option in the sidebar using Streamlit's download_button
         with st.sidebar:
             st.success("Knowledge base generated successfully!")
-            if st.button("Download the source"):
-                # Encode content for download
-                import base64
-                b64 = base64.b64encode(wiki_content.encode()).decode()
-                href = f'<a href="data:text/html;base64,{b64}" download="{topic}_wiki_content.html">Click here to download</a>'
-                st.markdown(href, unsafe_allow_html=True)
+            
+            # Create the download button
+            st.download_button(
+                label="Download the source",
+                data=wiki_content,
+                file_name=f"{topic}_wiki_content.html",
+                mime="text/html",
+            )
 
         # Initialize the knowledge base with topic content
         debater.build_knowledge_base()
