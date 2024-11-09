@@ -12,7 +12,9 @@ with st.sidebar:
     st.markdown("""
     Aiiwiki will respond with intelligent rebuttals to your arguments.
     Enter a topic to help Aiiwiki prepare for the debate, and challenge it with arguments!
-    """)
+    
+    Created by: [Samah Syed](https://github.com/samah-s)
+    """, unsafe_allow_html=True)
     
     # Step 1: Enter a debate topic
     topic = st.text_input("Enter the debate topic:")
